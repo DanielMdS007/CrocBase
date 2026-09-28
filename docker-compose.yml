@@ -1,0 +1,34 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    container_name: crocbase-backend
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.4
+
+    container_name: crocbase-mysql
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: crocbase
+      MYSQL_USER: crocbase
+      MYSQL_PASSWORD: crocbase
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
